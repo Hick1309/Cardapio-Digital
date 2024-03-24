@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block conteudo %}
+        <div class = "lista">    
+            <tr> Produto </tr>
+            <tr> Categoria </tr>
+            <tr> Valor </tr>
+        </div>
+        <div>
+        {% for cadastrado in exibe %}
+            <tr>
+                <td> {{ cadastrado }} </td>
+            </tr>
+        {% endfor %}  
+        </div>     
+{% endblock %}

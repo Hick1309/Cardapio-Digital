@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block conteudo %}
+    <form action="/form_cadastrar" method="POST">
+        <div>
+            <label for="nome">Nome do Produto:</label><br>
+            <input type="text" id="nome" name="nome" required><br>
+        </div>
+        <div>
+            <label for="preco">Preço:</label><br>
+            <input type="number" id="preco" name="preco" min="0" step="0.1" required><br>
+        </div>
+        <div>
+            <label for="categoria">Categoria:</label><br>
+            <select id="categoria" name="categoria" required>
+                <option value="">Selecione a Categoria</option>
+                <option value="pizza">Pizza</option>
+                <option value="bebidas">Bebidas</option>
+                <!-- Adicione mais opções conforme necessário -->
+            </select><br>
+        </div>
+        <div>
+            <button class="Cadastro" type="submit">Cadastrar</button>
+        </div>
+    </form>
+{% endblock %}
