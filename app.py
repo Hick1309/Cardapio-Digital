@@ -30,6 +30,18 @@ def form_cadastrar():
     '''produto = Cadastrar_produto(nome, categoria, preco)
     Cadastrar_produto.cadastrados.append(produto)'''
     return redirect('/cadastrar')
+
+@app.route('/login')
+def login():
+    return render_template('login.html', titulo = 'Tela de Login')
+    
+@app.route('/autenticar', methods=['POST'])
+def autenticar():
+    if 'Luisa123' == request.form['password']:
+        return redirect('/')
+    else:
+        return redirect('/login')
+
     
 @app.get('/cadastrados')
 def cadastrados():
