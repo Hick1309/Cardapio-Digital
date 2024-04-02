@@ -1,4 +1,4 @@
-from flask import Flask,  render_template, request, redirect
+from flask import Flask,  render_template, request, redirect, session, flash
 from modelos.cad_produto import Cadastrar_produto
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -11,6 +11,7 @@ db = client["db_produtos"]
 collection = db["produtos"]
 
 app = Flask(__name__)
+app.secret_key = 'impacta'
 
 @app.get('/')
 def inicio():
@@ -37,9 +38,12 @@ def login():
     
 @app.route('/autenticar', methods=['POST'])
 def autenticar():
-    if 'Luisa123' == request.form['password']:
+    if '123456' == request.form['password']:
+        session['usuario_logado'] = request.form['usuario']
+        flash(session['usuario_logado'] + ' logado com sucesso!')
         return redirect('/')
     else:
+        flash('Usuário não logado.')
         return redirect('/login')
 
     
