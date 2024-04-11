@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block conteudo %}
     <div>
-        <form action="/autenticar" method="POST"> 
+        <form action="{{ url_for('autenticar')}}" method="POST"> 
             <div>
                 <label for="usuario"> Usuario: </label><br>
                 <input type="text" id="usuario" name="usuario" required><br>

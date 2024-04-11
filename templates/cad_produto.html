@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block conteudo %}
-    <form action="/form_cadastrar" method="POST">
+    <form action="{{ url_for('form_cadastrar') }}" method="POST">
         <div>
             <label for="nome">Nome do Produto:</label><br>
             <input type="text" id="nome" name="nome" required><br>
