@@ -28,8 +28,6 @@ def form_cadastrar():
     preco = request.form['preco']
     produto = {"produto": nome, "valor": preco, "categoria": categoria}
     collection.insert_one(produto)
-    '''produto = Cadastrar_produto(nome, categoria, preco)
-    Cadastrar_produto.cadastrados.append(produto)'''
     return redirect(url_for('cadastrar'))
 
 @app.route('/login')
@@ -54,7 +52,7 @@ def logout():
    
 @app.get('/cadastrados')
 def cadastrados():
-    return render_template('cadastrados.html', titulo = 'Cadastrados', exibe = Cadastrar_produto.cadastrados)
+    return render_template('cadastrados.html', titulo = 'Cadastrados', exibe = collection.find())
 
 @app.get('/carrinho')
 def carrinho():

@@ -1,15 +1,23 @@
 {% extends "index.html" %}
 {% block conteudo %}
-        <div class = "lista">    
-            <tr> Produto </tr>
-            <tr> Categoria </tr>
-            <tr> Valor </tr>
-        </div>
-        <div>
+    <table>  
+        <caption>
+            Produtos Cadastrados
+        </caption>
+        <tr>
+            <th scope="col">Produto</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Adcionar Item</th>
+        </tr>
+   
         {% for cadastrado in exibe %}
-            <tr>
-                <td> {{ cadastrado }} </td>
-            </tr>
-        {% endfor %}  
-        </div>     
+        <tr>
+            <td >{{ cadastrado.produto }}</td>
+            <td >{{ cadastrado.categoria }}</td>
+            <td >{{ cadastrado.valor }}</td>
+            <td><button>Adicionar Item</button></td>
+        </tr>
+        {% endfor %}
+    </table>    
 {% endblock %}
