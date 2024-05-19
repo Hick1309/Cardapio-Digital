@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+{% block conteudo %}
+<form action="{{ url_for('delete_item') }}" method="post">
+    <table> 
+        <caption>
+            Área do pedido
+        </caption>
+        <tr>
+            <th scope="col">Produto</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Remover</th>
+        </tr>    
+        <ul>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.produto }}</td>
+                <td>{{ item.categoria }}</td>
+                <td>{{ item.valor }}</td>
+                <td>
+                    <input type="checkbox" name="items_selecionados" value="{{ item._id }}">
+                </td>
+            </tr>
+            {% endfor %}
+        </ul>
+    </table>
+    <table>
+        <ul>
+            <th scope="row">Total: </th>
+            <td>{{ total_items }}</td>
+        </ul>
+    </table>
+    <button type="submit">Remover Items</button>
+</form>
+{% endblock %}

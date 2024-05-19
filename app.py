@@ -2,6 +2,7 @@ from flask import Flask,  render_template, request, redirect, session, flash, ur
 from modelos.cad_produto import Cadastrar_produto
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from bson import ObjectId
 
 uri = "mongodb+srv://henriquefeitosa:12345@cluster-pipiline.gh2pwzy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-pipiline"
 
@@ -9,6 +10,7 @@ uri = "mongodb+srv://henriquefeitosa:12345@cluster-pipiline.gh2pwzy.mongodb.net/
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client["db_produtos"]
 collection = db["produtos"]
+items_collection = db["items"]
 
 app = Flask(__name__)
 app.secret_key = 'impacta'
@@ -52,11 +54,29 @@ def logout():
    
 @app.get('/cadastrados')
 def cadastrados():
-    return render_template('cadastrados.html', titulo = 'Cadastrados', exibe = collection.find())
+    return render_template('cadastrados.html', titulo = 'Cardapio', exibe = collection.find())
 
-@app.get('/carrinho')
-def carrinho():
-    return render_template('carrinho.html', titulo = 'Em desenvolvimento')
+@app.route('/form_pedido', methods=['POST'])
+def form_pedido():
+    selected_ids = request.form.getlist('items_selecionados')
+    selected_items = [collection.find_one({"_id": ObjectId(item_id)}) 
+                      for item_id in selected_ids]
+    items_collection.insert_many(selected_items)
+    return redirect(url_for('cadastrados'))
+
+@app.route('/delete_item', methods=['POST'])
+def delete_item():
+    selected_ids = request.form.getlist('items_selecionados')
+    for item_id in selected_ids:
+        items_collection.delete_one({"_id": ObjectId(item_id)})
+    return redirect(url_for('pedido'))
+
+@app.get('/pedido')
+def pedido():
+    items = items_collection.find()
+    total_items = sum(float(item["valor"]) for item in items)
+    total_formatado = f"R$ {total_items:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    return render_template('pedido.html', titulo = 'Área do Pedido', items = items_collection.find(), total_items = total_formatado)
     
 @app.get('/finalizar')
 def finalizar():

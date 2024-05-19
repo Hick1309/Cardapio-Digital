@@ -2,13 +2,13 @@
 {% block conteudo %}
     <div class = "inicio">
             <a href = "{{ url_for('cadastrar') }}" >
-            <button type="button"> Cadastrar </button>
+            <button type="button"> Cadastrar Produto </button>
         </a>
             <a href = "{{ url_for('cadastrados') }}">    
-            <button type="button"> Cadastrados </button>
+            <button type="button"> Cardapio </button>
         </a>
-            <a href = "{{ url_for('carrinho') }}">
-            <button type="button"> Carrinho </button>
+            <a href = "{{ url_for('pedido') }}">
+            <button type="button" > Área do Pedido </button>
         </a>    
             <a href = "{{ url_for('finalizar') }}">
             <button type="button"> Finalizar Pedido </button>

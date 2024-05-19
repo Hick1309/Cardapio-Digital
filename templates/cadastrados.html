@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% block conteudo %}
+<form  action="{{ url_for('form_pedido') }}" method="post">
     <table>  
         <caption>
             Produtos Cadastrados
@@ -16,8 +17,12 @@
             <td >{{ cadastrado.produto }}</td>
             <td >{{ cadastrado.categoria }}</td>
             <td >{{ cadastrado.valor }}</td>
-            <td><button>Adicionar Item</button></td>
+            <td>
+                <input type="checkbox" name="items_selecionados" value="{{ cadastrado._id }}">
+            </td>
         </tr>
         {% endfor %}
-    </table>    
+    </table>
+    <button type="submit">Adcionar Items</button>
+</form>  
 {% endblock %}

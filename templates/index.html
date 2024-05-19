@@ -3,13 +3,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardapio Digital</title>
-    <link rel="stylesheet" href = "{{ url_for('static', filename = 'styles.css') }}" >
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <div class = "page-header" >
-
+            <a href="{{ url_for('inicio') }}">
+                <i class="fas fa-home"> home </i><br>
+                <br>
+                <i class="fas fa-right-to-bracket"> login  </i><br>
+                <br>
+                <i class="fas fa-circle-xmark"> logout  </i>
+            </a>    
         <h1> {{ titulo }} </h1>
 
         </div>
@@ -28,6 +34,6 @@
         <div>
             {% block conteudo %}  {% endblock  %}
         </div>
-    </div>
+    </div>   
 </body>
 </html>
