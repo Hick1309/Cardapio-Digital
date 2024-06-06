@@ -1,4 +1,4 @@
-from flask import Flask,  render_template, request, redirect, session, flash, url_for
+from flask import Flask,  render_template, request, redirect, session, flash, url_for, json
 from modelos.cad_produto import Cadastrar_produto
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -11,6 +11,7 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 db = client["db_produtos"]
 collection = db["produtos"]
 items_collection = db["items"]
+preparacao_collection = db["preparacao"]
 
 app = Flask(__name__)
 app.secret_key = 'impacta'
@@ -64,11 +65,9 @@ def form_pedido():
     items_collection.insert_many(selected_items)
     return redirect(url_for('cadastrados'))
 
-@app.route('/delete_item', methods=['POST'])
-def delete_item():
-    selected_ids = request.form.getlist('items_selecionados')
-    for item_id in selected_ids:
-        items_collection.delete_one({"_id": ObjectId(item_id)})
+@app.route('/deletar_item', methods=['POST'])
+def deletar_item():
+    items_collection.delete_many({})
     return redirect(url_for('pedido'))
 
 @app.get('/pedido')
@@ -80,7 +79,14 @@ def pedido():
     
 @app.get('/finalizar')
 def finalizar():
-    return render_template('finalizar_pedido.html', titulo = 'Em desenvolvimento')
+    return render_template('finalizar_pedido.html', titulo = 'Preparação', preparacao = preparacao_collection.find())
+
+@app.route('/preparar', methods=['POST'])
+def preparar():
+    selected_items = list(items_collection.find({}))
+    preparacao_collection.insert_many(selected_items)
+    items_collection.delete_many({})
+    return redirect(url_for('pedido'))
 
 if __name__ == '__main__':
     app.run(debug=True)

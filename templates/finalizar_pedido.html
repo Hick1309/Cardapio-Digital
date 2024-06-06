@@ -1,4 +1,17 @@
 {% extends "index.html" %}
 {% block conteudo %}
-    <div></div>
+
+        {% for item in preparacao %}
+            <table>
+            <td>{{ item.categoria }}</td>
+            <td>{{ item.produto }}</td>
+            <td>{{ item.valor }}</td>
+            </table>
+        {% endfor %}
+
+
+    <div>
+        <button type="submit">Imprimir</button>
+        <button type="submit">Pedido finalizado</button>
+    </div>
 {% endblock %}
