@@ -24,13 +24,17 @@
         <ul>
             <th scope="row">Total: </th>
             <td>{{ total_items }}</td>
+            <td>
+                <form action="{{ url_for('deletar_item') }}" method="post">
+                    <button type="submit">Limpar</button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for('preparar') }}" method="post">
+                    <button type="submit">Enviar Pedido</button>
+                </form>
+            </td>
         </ul>
     </table>
-    <form action="{{ url_for('deletar_item') }}" method="post">
-        <button type="submit">Limpar</button>
-    </form>
 
-    <form action="{{ url_for('preparar') }}" method="post">
-        <button type="submit">Enviar Pedido</button>
-    </form>
 {% endblock %}

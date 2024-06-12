@@ -10,8 +10,16 @@
         {% endfor %}
 
 
-    <div>
-        <button type="submit">Imprimir</button>
-        <button type="submit">Pedido finalizado</button>
-    </div>
+    <table>
+        <td>
+            <form action="{{ url_for('finalizar_pedido') }}" method="post">
+                <button type="submit">Finalizar</button>
+            </form>
+        </td>
+        <td>
+            <form action="{{ url_for('finalizar_pedido') }}" method="post">
+                <button type="submit">Imprimir</button>
+            </form>
+        </td>
+    </table>
 {% endblock %}

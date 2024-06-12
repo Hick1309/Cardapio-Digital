@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block conteudo %}
-<form  action="{{ url_for('form_pedido') }}" method="post">
+<form  action="{{ url_for('incluir_item') }}" method="post">
     <table>  
         <caption>
             Produtos Cadastrados
@@ -9,7 +9,7 @@
             <th scope="col">Produto</th>
             <th scope="col">Categoria</th>
             <th scope="col">Valor</th>
-            <th scope="col">Adcionar Item</th>
+            <th scope="col">Incluir Items na Comanda</th></th>
         </tr>
    
         {% for cadastrado in exibe %}
@@ -18,11 +18,13 @@
             <td >{{ cadastrado.categoria }}</td>
             <td >{{ cadastrado.valor }}</td>
             <td>
-                <input type="checkbox" name="items_selecionados" value="{{ cadastrado._id }}">
+                <form action="{{ url_for('incluir_item') }}" method="POST">
+                    <input type="hidden" name="item_id" value="{{ cadastrado._id }}">
+                    <button type="submit">Incluir</button>
+                </form>
             </td>
         </tr>
         {% endfor %}
     </table>
-    <button type="submit">Adcionar Items</button>
 </form>  
 {% endblock %}
