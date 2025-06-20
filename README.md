@@ -13,7 +13,7 @@ Este é um projeto de aplicação web em Python utilizando o framework Flask, qu
 1. Clone o repositório:
 
     ```bash
-    git clone https://github.com/seu_usuario/seu_repositorio.git
+    git clone https://github.com/Hick1309/Cardapio-Digital
     ```
 
 2. Instale as dependências:
